@@ -44,7 +44,7 @@ const EditFeed: FC<P> = (props: P): JSX.Element => {
       });
       return;
     }
-    if ((e.target as HTMLFormElement).Title.value.length > 25) {
+    if ((e.target as HTMLFormElement).Title.value.length > 15) {
       // 피드 이름이 15글자 이상인 경우
       setModalContent({
         header: "Feed Name",
@@ -64,11 +64,11 @@ const EditFeed: FC<P> = (props: P): JSX.Element => {
       });
       return;
     }
-    if ((e.target as HTMLFormElement).Text.value.length > 200) {
-      // 내용이 200자가 넘는 경우
+    if ((e.target as HTMLFormElement).Text.value.length > 15) {
+      // 내용이 15 넘는 경우
       setModalContent({
         header: "Feed Content",
-        message: "the maximum number of characters for a feed content is 200",
+        message: "the maximum number of characters for a feed content is 15",
         toggle: "view",
       });
       return;
@@ -123,12 +123,12 @@ const EditFeed: FC<P> = (props: P): JSX.Element => {
           type="text"
           placeholder="URL"
         ></input>
-        <input className="form-control" id="Title" placeholder="Title"></input>
+        <input className="form-control" id="Title" placeholder="Title (15)"></input>
 
         <textarea
           className="form-control"
           id="Text"
-          placeholder="Content (200)"
+          placeholder="Content (15)"
         ></textarea>
         <button type="submit" className="login-button mt-2 mb-4">
           Edit
