@@ -34,7 +34,6 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
 
   // Check Local Login
   const localUserLoggedin = localStorage.getItem("provider") === "local";
-  console.log(loginContent);
 
   //--------------------------------------------------------
   // Event Handler
@@ -44,7 +43,7 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
     e.preventDefault();
 
     /* Password Check */
-    if ((e.target as HTMLFormElement).Password.value == "") {
+    if ((e.target as HTMLFormElement).Password.value === "") {
       // password가 비어있는 경우
       setModalContent({
         header: "Password ERROR",
@@ -66,7 +65,7 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
     }
 
     /* Nickname Check */
-    if ((e.target as HTMLFormElement).Nickname.value == "") {
+    if ((e.target as HTMLFormElement).Nickname.value === "") {
       // nickname이 없는 경우
       setModalContent({
         header: "Nickname ERROR",
@@ -109,7 +108,7 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
   const updateUser = async (e: any) => {
     try {
       await axios
-        .patch<Patch>("/api/user/", {
+        .patch<Patch>(process.env.REACT_APP_API_URL + "/api/user", {
           nick: e.target.Nickname.value,
           password: e.target.Password.value,
         })
@@ -143,7 +142,7 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
   /* <Axios Request> - Axios Delete /api/user */
   const deleteUser = async () => {
     try {
-      await axios.delete<Delete>("/api/user").then((res) => {
+      await axios.delete<Delete>(process.env.REACT_APP_API_URL + "/api/user").then((res) => {
         // logout
         window.localStorage.clear();
 
