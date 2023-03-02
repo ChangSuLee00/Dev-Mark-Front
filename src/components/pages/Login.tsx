@@ -157,7 +157,7 @@ const Login = (): JSX.Element => {
         <hr className="sidebar-divider my-0 mb-4" />
 
         {/* OAuth1 */}
-        <a href="http://localhost:5000/api/user/kakao">
+        <a href={`${process.env.REACT_APP_API_URL}/api/user/kakao`}>
           <button className="kakao-container mb-3">
             <img
               className="kakao-login"
@@ -167,7 +167,7 @@ const Login = (): JSX.Element => {
         </a>
 
         {/* OAuth2 */}
-        <a href="http://localhost:5000/api/user/github">
+        <a href={`${process.env.REACT_APP_API_URL}/api/user/github`}>
           <button className="github-container mb-3">
             <img
               className="github-login"
