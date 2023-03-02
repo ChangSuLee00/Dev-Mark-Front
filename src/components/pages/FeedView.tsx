@@ -135,7 +135,6 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
       try {
         await getFeed();
       } catch (e) {
-        console.error(e);
       }
     };
     fetchFeed();
@@ -169,7 +168,7 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
             type="button"
             className="btn btn-outline-primary feed-search-btn"
           >
-            <a href={`/feeds?id=${id}&search=${writeSearch}`}>
+            <a href={`/feeds?id=0&search=${writeSearch}`}>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </a>
           </button>
