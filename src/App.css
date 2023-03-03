@@ -189,12 +189,15 @@
   opacity: 0.4;
   width: 60%;
   z-index: 1;
+
+  margin-top: 5rem;
+  margin-bottom: 15rem;
 }
 
 .front-page-text {
   position: absolute;
   text-align: center;
-  top: 50%;
+  top: 35%;
   left: 50%;
   width: 100%;
   transform: translate(-50%, -50%);
@@ -305,7 +308,7 @@
   /* width: 100%; */
 }
 
-.bookmark-card-header-left{
+.bookmark-card-header-left {
   width: 50%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -316,13 +319,13 @@
   color: #d9b70d;
 }
 
-.bookmark-name-container{
+.bookmark-name-container {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.bookmark-menu-name{
+.bookmark-menu-name {
   /* overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; */
@@ -438,9 +441,9 @@
 .modal-container-background {
   position: fixed;
   top: 30%;
-  left: 56%;
+  left: 54%;
   transform: translateX(-53%);
-  width: 441px;
+  width: 420px;
   height: 300px;
   z-index: 999;
 
@@ -511,7 +514,7 @@
   margin: 2vw 10vw 2vw 10vw;
 }
 
-.form-control-gpt{
+.form-control-gpt {
   height: 6rem;
 }
 
@@ -671,10 +674,9 @@
 .hyper-link {
   color: black;
   text-decoration-line: none;
-
 }
 
-.feed-description{
+.feed-description {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -686,7 +688,7 @@
   justify-content: center;
 }
 
-.page-item{
+.page-item {
   border: none;
 }
 
@@ -701,6 +703,7 @@
   background-color: white;
 
   border-radius: 20px;
+  border-color: black;
 }
 
 /* Footer */
