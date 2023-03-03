@@ -10,16 +10,14 @@ interface Get {
 }
 
 const RedirectPage = (): JSX.Element => {
-  const access_token = document.cookie
-    ?.split("; ")
-    ?.find((row) => row.startsWith("access_token="))
-    ?.split("=")[1];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get('token');
 
   const getInfo = async () => {
     try {
       await axios
         .get<Get>(process.env.REACT_APP_API_URL + "/api/user/info", {
-          headers: { Authorization: `Bearer ${access_token}` },
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
           const UserId = String(res.data.id);
@@ -28,11 +26,7 @@ const RedirectPage = (): JSX.Element => {
           window.localStorage.setItem("userId", UserId);
           window.localStorage.setItem("userNick", UserNick);
           window.localStorage.setItem("provider", Provider);
-          window.localStorage.setItem("token", access_token!);
-
-          document.cookie =
-            "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-          // 쿠키 삭제
+          window.localStorage.setItem("token", token!);
 
           window.location.replace("/");
         });
