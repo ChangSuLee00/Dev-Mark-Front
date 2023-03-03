@@ -28,22 +28,22 @@ const DModal: FC<P> = (props: P): JSX.Element => {
   // Event Handler
 
   /* <Event Handler> - Delete Box */
-  const boxDelete = (e: React.MouseEvent<HTMLElement>) => {
+  const boxDelete = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     /* Delete Box */
-    deleteBox(props.url, props.id);
+    await deleteBox(props.url, props.id);
 
     /* Reload */
     window.location.reload();
   };
 
   /* <Event Handler> - Delete Bookmark */
-  const bookmarkDelete = (e: React.MouseEvent<HTMLElement>) => {
+  const bookmarkDelete = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     /* Delete Box */
-    deleteBookmark(props.id);
+    await deleteBookmark(props.id);
 
     /* Reload */
     window.location.reload();

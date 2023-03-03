@@ -39,7 +39,7 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
   // Event Handler
 
   /* <Event Handler> - Update User */
-  const handleUpdateUser = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     /* Password Check */
@@ -84,21 +84,19 @@ const ProfilePage: FC<P> = (props: P): JSX.Element => {
       return;
     }
 
-    updateUser(e);
+    await updateUser(e);
 
     window.location.replace("/");
-
-    alert("please login again");
   };
 
   /* <Event Handler> - Delete User */
-  const handleDeleteUser = () => {
+  const handleDeleteUser = async () => {
     /* Delete Confirm */
     if (!window.confirm("Are you sure to delete?")) {
       return;
     }
 
-    deleteUser();
+    await deleteUser();
   };
 
   //--------------------------------------------------------

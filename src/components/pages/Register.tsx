@@ -31,7 +31,7 @@ const Register = (): JSX.Element => {
   // Event Handler
 
   /* <Event Handler> - Register Scripts */
-  const handelRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const handelRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     /* Email Check */
@@ -89,7 +89,7 @@ const Register = (): JSX.Element => {
     }
 
     /* register */
-    register(e);
+    await register(e);
   };
 
   //--------------------------------------------------------

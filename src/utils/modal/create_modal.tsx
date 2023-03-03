@@ -65,7 +65,7 @@ const CModal: FC<P> = (props: P): JSX.Element => {
     }
 
     /* Create Bookmark */
-    createBookmark(e, props.id);
+    await createBookmark(e, props.id);
 
     /* Reload */
     window.location.reload();

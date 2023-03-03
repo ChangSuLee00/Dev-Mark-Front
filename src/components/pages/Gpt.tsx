@@ -47,7 +47,7 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
       return;
     }
 
-    generateQuestion();
+    await generateQuestion();
   }
 
   // onSubmitAnswer Event
@@ -63,7 +63,7 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
       });
       return;
     }
-    generateAnswer();
+    await generateAnswer();
   }
 
   //--------------------------------------------------------
@@ -141,7 +141,7 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
       <div>
         <main className="gpt_main">
           <h3>Tech Interview</h3>
-          <form onSubmit={onSubmitQuestion}>
+          <form onSubmit={onSubmitQuestion} className="mt-1">
             <input
               type="text"
               name="question"
@@ -149,7 +149,7 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
               value={techInput}
               onChange={(e) => setTechInput(e.target.value)}
             />
-            <input type="submit" value="Generate" />
+            <input type="submit" value="Generate" className="mt-1"/>
           </form>
           <div>
             <form className="edit-form gpt-form" onSubmit={onSubmitAnswer}>

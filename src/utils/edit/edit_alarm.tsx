@@ -53,7 +53,7 @@ const EditAlarm: FC<P> = (props: P): JSX.Element => {
     }
 
     /* createAlarm Axios */
-    createAlarm(e, startDate);
+    await createAlarm(e, startDate);
 
     /* Reload */
     window.location.replace("/alarms");

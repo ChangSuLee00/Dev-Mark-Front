@@ -37,14 +37,15 @@ const AlarmMain: FC<P> = (props: P): JSX.Element => {
   /* Memo State */
   const [alarms, setAlarms] = useState<any>([]);
 
-  const alarmDelete = (e: any, alarmId: string) => {
+  const alarmDelete = async (e: any, alarmId: string) => {
     e.preventDefault();
     /* Delete Confirm */
     if (!window.confirm("Are you sure to delete?")) {
       return;
     }
     /* Delete Alarm */
-    deleteAlarm(alarmId);
+    await deleteAlarm(alarmId);
+
     /* Reload */
     window.location.replace("/alarms");
   };

@@ -75,10 +75,10 @@ const EditFeed: FC<P> = (props: P): JSX.Element => {
     }
 
     /* createMemo Axios */
-    createFeed(e);
+    await createFeed(e);
 
     /* Reload */
-    window.location.replace(`/`);
+    window.location.replace(`/feeds`);
   };
 
   //--------------------------------------------------------

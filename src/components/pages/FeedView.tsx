@@ -43,13 +43,13 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
   // Event Handler
 
   /* <Event Handler> - handleOpenFeed */
-  const handleDeleteFeed = (e: string) => {
+  const handleDeleteFeed = async (e: string) => {
     /* Delete Confirm */
     if (!window.confirm("Are you sure to delete?")) {
       return;
     }
     /* Delete Feed */
-    deleteFeed(e);
+    await deleteFeed(e);
     /* Reload */
     window.location.replace("/feeds?id=0");
     window.location.reload();
