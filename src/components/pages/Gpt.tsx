@@ -35,12 +35,34 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
   // onSubmitQuestion Event
   async function onSubmitQuestion(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    /* Feed Content Check */
+    if (!techInput) {
+      // 내용이 없는 경우
+      setModalContent({
+        header: "Gpt Content",
+        message: "You must enter qustion",
+        toggle: "view",
+      });
+      return;
+    }
+
     generateQuestion();
   }
 
   // onSubmitAnswer Event
   async function onSubmitAnswer(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!answerInput) {
+      // 내용이 없는 경우
+      setModalContent({
+        header: "Gpt Content",
+        message: "You must enter answer",
+        toggle: "view",
+      });
+      return;
+    }
     generateAnswer();
   }
 
