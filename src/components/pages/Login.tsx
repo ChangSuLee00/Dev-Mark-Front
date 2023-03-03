@@ -84,7 +84,6 @@ const Login = (): JSX.Element => {
           headers: { Authorization: `Bearer ${tokenRef.current}` },
         })
         .then((res) => {
-          console.log(res);
           const UserId = String(res.data.id);
           const UserNick = String(res.data.nick);
           const Provider = String(res.data.provider);
