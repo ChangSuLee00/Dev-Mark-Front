@@ -43,10 +43,12 @@ const NavBar: FC<P> = (props: P): JSX.Element => {
 
   const nofityAlarm = async () => {
     try {
-      await axios.get<Get>(process.env.REACT_APP_API_URL + "/api/alarm/notification").then((res) => {
-        const alarms = res.data.length;
-        setNotification(alarms);
-      });
+      await axios
+        .get<Get>(process.env.REACT_APP_API_URL + "/api/alarm/notification")
+        .then((res) => {
+          const alarms = res.data.length;
+          setNotification(alarms);
+        });
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -81,7 +83,7 @@ const NavBar: FC<P> = (props: P): JSX.Element => {
 
     fetchAlarms();
   }, [loginContent]);
-
+  
   //--------------------------------------------------------
   // return
 
@@ -101,17 +103,33 @@ const NavBar: FC<P> = (props: P): JSX.Element => {
       {/* Topbar Navbar */}
       <ul className="navbar-nav navbar-left-container">
         {/* Notification */}
-        <button className="nav-item position-relative notification">
-          <Link to="/alarms" className="nav-notification">
-            <FontAwesomeIcon icon={faBell} />
-          </Link>
-          {props.loggedIn && notification ? (
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              {`${notification}+`}
-              <span className="visually-hidden">unread messages</span>
-            </span>
-          ) : null}
-        </button>
+        {loginContent.loggedIn ? (
+          <>
+            <button className="nav-item position-relative notification">
+              <Link to="/alarms" className="nav-notification">
+                <FontAwesomeIcon icon={faBell} />
+              </Link>
+              {props.loggedIn && notification ? (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {`${notification}+`}
+                  <span className="visually-hidden">unread messages</span>
+                </span>
+              ) : null}
+            </button>
+          </>
+        ) : (
+          <button className="nav-item position-relative notification">
+            <Link to="/" className="nav-notification">
+              <FontAwesomeIcon icon={faBell} />
+            </Link>
+            {props.loggedIn && notification ? (
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {`${notification}+`}
+                <span className="visually-hidden">unread messages</span>
+              </span>
+            ) : null}
+          </button>
+        )}
 
         {/* BlockBar */}
         <div className="vr m-2"></div>

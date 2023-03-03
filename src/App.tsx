@@ -33,6 +33,7 @@ export const UserContext = createContext({
 });
 
 export const SidebarContext = createContext({
+  sidebar: true,
   setSidebar: (sidebar: any): any => {},
 });
 
@@ -82,7 +83,10 @@ const App = (): JSX.Element => {
     () => ({ loginContent, setLoginContent }),
     [loginContent, setLoginContent]
   );
-  const sidebarMemo = useMemo(() => ({ setSidebar }), [setSidebar]);
+  const sidebarMemo = useMemo(
+    () => ({ sidebar, setSidebar }),
+    [sidebar, setSidebar]
+  );
   const modalMemo = useMemo(() => ({ setModalContent }), [setModalContent]);
 
   /* Storage Login */
@@ -113,7 +117,7 @@ const App = (): JSX.Element => {
   //--------------------------------------------------------
   /* Check If Loggedin Or Not */
 
-  useEffect( () => {
+  useEffect(() => {
     if (
       window.localStorage.getItem("userId") ||
       window.sessionStorage.getItem("userId")

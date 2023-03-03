@@ -1,27 +1,30 @@
 import React, { useContext, useEffect } from "react";
-import { UserContext } from "../App";
+import { SidebarContext, UserContext } from "../App";
 import Scrollback from "../utils/scrollback";
 
 const FrontPage = (): JSX.Element => {
   const { loginContent } = useContext(UserContext);
+  const { sidebar } = useContext(SidebarContext);
 
   const viewport = () => {
-    if (loginContent.loggedIn) {
-      // 로그인 되어있다면 css를 container-logged-in으로 변경
-      document
-        .getElementById("frontpage-container")
-        ?.classList.remove("container-not-logged-in");
-      document
-        .getElementById("frontpage-container")
-        ?.classList.add("container-logged-in");
-    } else {
-      // 로그인 되어있지 않다면 css를 container-not-logged-in으로 변경
+    if (!loginContent.loggedIn || !sidebar) {
+      // 로그인 되어있지 않다면 or Sidear 닫았다면
+      //  css를 container-not-logged-in으로 변경
       document
         .getElementById("frontpage-container")
         ?.classList.remove("container-logged-in");
       document
         .getElementById("frontpage-container")
         ?.classList.add("container-not-logged-in");
+    } else {
+      // 로그인 되어있다면 and Sidebar 닫지 않았다면
+      // css를 container-logged-in으로 변경
+      document
+        .getElementById("frontpage-container")
+        ?.classList.remove("container-not-logged-in");
+      document
+        .getElementById("frontpage-container")
+        ?.classList.add("container-logged-in");
     }
   };
 
