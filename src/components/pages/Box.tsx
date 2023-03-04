@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ModalContext } from "../../App";
+import { ModalContext, UserContext } from "../../App";
 import Header from "../common/Header";
 
 // Interfaces
@@ -19,6 +19,7 @@ const Box = (): JSX.Element => {
   //--------------------------------------------------------
   // Declaration of useState, useContext, useRef ...
 
+  const { loginContent } = useContext(UserContext);
   const { setModalContent } = useContext(ModalContext);
   const [boxs, setBoxs] = useState<string[][]>([]);
   const token = localStorage.getItem("token");
@@ -28,10 +29,18 @@ const Box = (): JSX.Element => {
   /* Modals */
 
   const addBox = () => {
-    setModalContent({
-      header: "Edit_Box",
-      toggle: "create",
-    });
+    if (loginContent.loggedIn) {
+      setModalContent({
+        header: "Edit_Box",
+        toggle: "create",
+      });
+    } else {
+      setModalContent({
+        header: "Login Needed",
+        message: "You need to login before use bookmark service",
+        toggle: "view",
+      });
+    }
   };
 
   const updateBox = (url: string, id: string) => {
@@ -58,17 +67,19 @@ const Box = (): JSX.Element => {
   /* <Axios Request> - Box Axios Get /api/box */
   const getBox = async () => {
     try {
-      await axios.get<Get>(process.env.REACT_APP_API_URL + "/api/box").then((res) => {
-        const newBox: Array<string[]> = [];
-        for (let i = 0; i < res.data.length; i++) {
-          const boxName: string = res.data[i].boxName;
-          const boxUrl: string = res.data[i].img;
-          const boxId: string = res.data[i].id;
-          newBox.push([boxName, boxUrl, boxId]);
-          // [boxName, boxUrl, boxId] 형태로 Array에 저장 후 setState
-          setBoxs(newBox);
-        }
-      });
+      await axios
+        .get<Get>(process.env.REACT_APP_API_URL + "/api/box")
+        .then((res) => {
+          const newBox: Array<string[]> = [];
+          for (let i = 0; i < res.data.length; i++) {
+            const boxName: string = res.data[i].boxName;
+            const boxUrl: string = res.data[i].img;
+            const boxId: string = res.data[i].id;
+            newBox.push([boxName, boxUrl, boxId]);
+            // [boxName, boxUrl, boxId] 형태로 Array에 저장 후 setState
+            setBoxs(newBox);
+          }
+        });
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -98,8 +109,9 @@ const Box = (): JSX.Element => {
         console.error(e);
       }
     };
-
-    fetchBoxs();
+    if (loginContent.loggedIn) {
+      fetchBoxs();
+    }
   }, []);
 
   //--------------------------------------------------------
