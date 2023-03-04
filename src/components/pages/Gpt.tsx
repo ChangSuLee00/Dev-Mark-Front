@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import React, { FC, useContext, useState } from "react";
-import { ModalContext } from "../../App";
+import { ModalContext, UserContext } from "../../App";
 import Header from "../common/Header";
 
 // Interfaces
@@ -23,6 +23,7 @@ interface P {
 const GptMain: FC<P> = (props: P): JSX.Element => {
   //--------------------------------------------------------
   // Declaration of useState, useContext, useRef ...
+  const { loginContent } = useContext(UserContext);
   const [techInput, setTechInput] = useState("");
   const [answerInput, setAnswerInput] = useState("");
   const { setModalContent } = useContext(ModalContext);
@@ -35,6 +36,15 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
   // onSubmitQuestion Event
   async function onSubmitQuestion(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if(!loginContent.loggedIn) {
+      setModalContent({
+        header: "Gpt Content",
+        message: "You need to login before use gpt service",
+        toggle: "view",
+      });
+      return
+    }
 
     /* Feed Content Check */
     if (!techInput) {
@@ -53,6 +63,15 @@ const GptMain: FC<P> = (props: P): JSX.Element => {
   // onSubmitAnswer Event
   async function onSubmitAnswer(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if(!loginContent.loggedIn) {
+      setModalContent({
+        header: "Gpt Content",
+        message: "You need to login before use gpt service",
+        toggle: "view",
+      });
+      return
+    }
 
     if (!answerInput) {
       // 내용이 없는 경우
