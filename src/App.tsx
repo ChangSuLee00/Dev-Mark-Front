@@ -73,6 +73,7 @@ const App = (): JSX.Element => {
     toggle: "",
     url: "",
     id: "",
+    boxId: "",
   });
 
   //--------------------------------------------------------
@@ -160,6 +161,7 @@ const App = (): JSX.Element => {
           toggle={ModalContent.toggle}
           url={ModalContent.url}
           id={ModalContent.id}
+          boxId={ModalContent.boxId}
         />
       );
     }
@@ -171,6 +173,7 @@ const App = (): JSX.Element => {
           toggle={ModalContent.toggle}
           url={ModalContent.url}
           id={ModalContent.id}
+          boxId={ModalContent.boxId}
         />
       );
     }

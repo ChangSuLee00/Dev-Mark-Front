@@ -51,6 +51,7 @@ const BoxContent: FC<P> = (props: P): JSX.Element => {
       header: "Delete_Content",
       toggle: "delete",
       id: id,
+      boxId: props.boxId,
     });
   };
 
@@ -60,6 +61,7 @@ const BoxContent: FC<P> = (props: P): JSX.Element => {
       header: "Update_Content",
       toggle: "update",
       id: bookmarkId,
+      boxId: props.boxId,
     });
   };
 

@@ -16,6 +16,7 @@ interface P {
   toggle: any;
   url: string;
   id: string;
+  boxId: string;
 }
 
 interface Patch {
@@ -102,7 +103,7 @@ const UModal: FC<P> = (props: P): JSX.Element => {
     }
     e.preventDefault();
 
-    await updateContent(e, props.id);
+    await updateContent(e, props.id, props.boxId);
 
     /* Reload */
     window.location.reload();
@@ -115,16 +116,22 @@ const UModal: FC<P> = (props: P): JSX.Element => {
   let imageURL = "";
   const uploadImg = async (e: any, formData: FormData, config: object) => {
     try {
-      await axios.post<Post>(process.env.REACT_APP_API_URL + "/api/box/img", formData, config).then((res) => {
-        imageURL = res.data.url;
-        if (res.data.Error) {
-          setModalContent({
-            header: "Edit ERROR",
-            message: res.data.Error,
-            toggle: "view",
-          });
-        }
-      });
+      await axios
+        .post<Post>(
+          process.env.REACT_APP_API_URL + "/api/box/img",
+          formData,
+          config
+        )
+        .then((res) => {
+          imageURL = res.data.url;
+          if (res.data.Error) {
+            setModalContent({
+              header: "Edit ERROR",
+              message: res.data.Error,
+              toggle: "view",
+            });
+          }
+        });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -169,13 +176,17 @@ const UModal: FC<P> = (props: P): JSX.Element => {
   };
 
   /* <Axios Request> - Bookmark Axios Patch /api/bookmark */
-  const updateContent = async (e: any, contentId: string) => {
+  const updateContent = async (e: any, contentId: string, boxId: string) => {
     try {
-      await axios.patch<Patch>(process.env.REACT_APP_API_URL + "/api/bookmark", {
-        bookmarkName: e.target.BookmarkName.value,
-        URL: e.target.BookmarkURL.value,
-        bookmarkId: contentId,
-      });
+      await axios.patch<Patch>(
+        process.env.REACT_APP_API_URL + "/api/bookmark",
+        {
+          bookmarkName: e.target.BookmarkName.value,
+          URL: e.target.BookmarkURL.value,
+          bookmarkId: contentId,
+          boxId: boxId,
+        }
+      );
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error(

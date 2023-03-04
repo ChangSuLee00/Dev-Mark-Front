@@ -14,6 +14,7 @@ interface P {
   toggle: any;
   url: string;
   id: string;
+  boxId: string;
 }
 
 // React Start from here
@@ -43,7 +44,7 @@ const DModal: FC<P> = (props: P): JSX.Element => {
     e.preventDefault();
 
     /* Delete Box */
-    await deleteBookmark(props.id);
+    await deleteBookmark(props.id, props.boxId);
 
     /* Reload */
     window.location.reload();
@@ -80,13 +81,17 @@ const DModal: FC<P> = (props: P): JSX.Element => {
   };
 
   /* <Axios Request> - Bookmark Axios delete /api/bookmark */
-  const deleteBookmark = async (bookmarkId: string) => {
+  const deleteBookmark = async (bookmarkId: string, boxId: string) => {
     try {
-      await axios.delete<Delete>(process.env.REACT_APP_API_URL + "/api/bookmark", {
-        data: {
-          id: bookmarkId,
-        },
-      });
+      await axios.delete<Delete>(
+        process.env.REACT_APP_API_URL + "/api/bookmark",
+        {
+          data: {
+            id: bookmarkId,
+            boxId: boxId,
+          },
+        }
+      );
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error(
