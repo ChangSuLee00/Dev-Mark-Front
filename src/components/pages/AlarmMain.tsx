@@ -2,7 +2,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios, { AxiosResponse } from "axios";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { ModalContext } from "../../App";
+import { ModalContext, UserContext } from "../../App";
 import Header from "../common/Header";
 
 // Interfaces
@@ -33,6 +33,8 @@ const AlarmMain: FC<P> = (props: P): JSX.Element => {
 
   /* Modal Context */
   const { setModalContent } = useContext(ModalContext);
+  /* Login Context */
+  const { loginContent } = useContext(UserContext);
 
   /* Memo State */
   const [alarms, setAlarms] = useState<any>([]);
@@ -129,11 +131,11 @@ const AlarmMain: FC<P> = (props: P): JSX.Element => {
       try {
         await getAlarms();
       } catch (e) {
-        console.error(e);
       }
     };
-
+    if (loginContent.loggedIn) {
     fetchAlarms();
+    }
   }, []);
 
   //--------------------------------------------------------
