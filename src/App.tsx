@@ -188,7 +188,7 @@ const App = (): JSX.Element => {
               {/* Page Wrapper */}
               <div id="wrapper">
                 {/* Sidebar */}
-                {sidebar && loginContent.loggedIn ? (
+                {sidebar ? (
                   <div id="sidebar">
                     <Slidebar />
                   </div>

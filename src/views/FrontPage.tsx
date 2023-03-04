@@ -7,7 +7,7 @@ const FrontPage = (): JSX.Element => {
   const { sidebar } = useContext(SidebarContext);
 
   const viewport = () => {
-    if (!loginContent.loggedIn || !sidebar) {
+    if (!sidebar) {
       // 로그인 되어있지 않다면 or Sidear 닫았다면
       //  css를 container-not-logged-in으로 변경
       document
