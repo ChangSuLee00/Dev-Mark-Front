@@ -61,24 +61,26 @@ const AlarmMain: FC<P> = (props: P): JSX.Element => {
   /* <Axios Request> - Alarm Axios Get /api/alarm -- Get All */
   const getAlarms = async () => {
     try {
-      await axios.get<Get>(process.env.REACT_APP_API_URL + "/api/alarm").then((res) => {
-        let newAlarm: Array<any[]> = [];
-        for (let i = 0; i < res.data.length; i++) {
-          const alarmName: string = res.data[i].alarmName;
+      await axios
+        .get<Get>(process.env.REACT_APP_API_URL + "/api/alarm")
+        .then((res) => {
+          let newAlarm: Array<any[]> = [];
+          for (let i = 0; i < res.data.length; i++) {
+            const alarmName: string = res.data[i].alarmName;
 
-          /* Date 포멧 형식 변환 */
-          const time: Date = res.data[i].time;
-          let date = new Date(time);
-          date.toLocaleDateString();
-          let newDate = date.toString();
+            /* Date 포멧 형식 변환 */
+            const time: Date = res.data[i].time;
+            let date = new Date(time);
+            date.toLocaleDateString();
+            let newDate = date.toString();
 
-          const alarmId = res.data[i].id;
+            const alarmId = res.data[i].id;
 
-          newAlarm.push([alarmName, newDate, alarmId]);
-          // [boxName, boxUrl, boxId] 형태로 Array에 저장 후 setState
-          setAlarms(newAlarm);
-        }
-      });
+            newAlarm.push([alarmName, newDate, alarmId]);
+            // [boxName, boxUrl, boxId] 형태로 Array에 저장 후 setState
+            setAlarms(newAlarm);
+          }
+        });
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -130,12 +132,11 @@ const AlarmMain: FC<P> = (props: P): JSX.Element => {
     const fetchAlarms = async () => {
       try {
         await getAlarms();
-      } catch (e) {
+      } catch (e: any) {
+        console.error(e);
       }
     };
-    if (loginContent.loggedIn) {
     fetchAlarms();
-    }
   }, []);
 
   //--------------------------------------------------------

@@ -109,9 +109,7 @@ const Box = (): JSX.Element => {
         console.error(e);
       }
     };
-    if (loginContent.loggedIn) {
-      fetchBoxs();
-    }
+    fetchBoxs();
   }, []);
 
   //--------------------------------------------------------
