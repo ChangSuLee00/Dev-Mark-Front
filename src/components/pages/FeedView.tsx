@@ -28,14 +28,14 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
   //--------------------------------------------------------
   // Declaration of useState, useContext, useRef ...
   const [searchParams, setSearchParams] = useSearchParams();
-  const id = Number(searchParams.get("id"));
+  let id = Number(searchParams.get("id"));
   const search = searchParams.get("search");
   const [writeSearch, setWriteSearch] = useState("");
 
   const { loginContent } = useContext(UserContext);
   const { setModalContent } = useContext(ModalContext);
   const [feeds, setFeeds] = useState<string[][]>([]);
-  
+
   const token = localStorage.getItem("token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -62,8 +62,13 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
   const getFeed = async () => {
     try {
       await axios
-        .get<Get>(process.env.REACT_APP_API_URL + `/api/feed?id=${id}&search=${search}`)
+        .get<Get>(
+          process.env.REACT_APP_API_URL + `/api/feed?id=${id}&search=${search}`
+        )
         .then((res) => {
+          if (res.data.length === 0) {
+            window.location.replace(`/feeds?id=${id - 1}&search=${search}`);
+          }
           const newFeed: Array<string[]> = [];
           for (let i = 0; i < res.data.length; i++) {
             const feedName: string = res.data[i].FeedName;
@@ -134,8 +139,7 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
     const fetchFeed = async () => {
       try {
         await getFeed();
-      } catch (e) {
-      }
+      } catch (e) {}
     };
     fetchFeed();
   }, []);
@@ -213,37 +217,34 @@ const FeedView: FC<P> = (props: P): JSX.Element => {
           ))}
         </>
       ) : null}
-        <div className="page_nav mt-5 mb-5">
-          <button className="page-item">
-            {id === 0 ? (
-              <a
-                href={`/feeds?id=${id}&search=${search}`}
-                className="page-link"
-              >
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            ) : (
-              <a
-                href={`/feeds?id=${id - 1}&search=${search}`}
-                className="page-link"
-                aria-label="Previous"
-              >
-                <span>&laquo;</span>
-              </a>
-            )}
-          </button>
-          <button className="page-item">
-            <div className="page-link">&nbsp; &nbsp;</div>
-          </button>
-          <button className="page-item">
-            <a
-              href={`/feeds?id=${id + 1}&search=${search}`}
-              className="page-link"
-            >
-              <span>&raquo;</span>
+      <div className="page_nav mt-5 mb-5">
+        <button className="page-item">
+          {id === 0 ? (
+            <a href={`/feeds?id=${id}&search=${search}`} className="page-link">
+              <span aria-hidden="true">&laquo;</span>
             </a>
-          </button>
-        </div>
+          ) : (
+            <a
+              href={`/feeds?id=${id - 1}&search=${search}`}
+              className="page-link"
+              aria-label="Previous"
+            >
+              <span>&laquo;</span>
+            </a>
+          )}
+        </button>
+        <button className="page-item">
+          <div className="page-link">&nbsp; &nbsp;</div>
+        </button>
+        <button className="page-item">
+          <a
+            href={`/feeds?id=${id + 1}&search=${search}`}
+            className="page-link"
+          >
+            <span>&raquo;</span>
+          </a>
+        </button>
+      </div>
     </>
   );
 };
